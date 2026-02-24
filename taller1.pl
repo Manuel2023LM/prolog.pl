@@ -250,11 +250,47 @@ hija(X,Y) :-  es_mujer(X),
 
 
 
+/*========================= Crimen =========================*/
 
 
 
+/* Nacionalidad */
+estadounidense(west).
+
+/* Relaciones internacionales */
+enemigo(corea_sur, estados_unidos).
+
+/* Misiles */
+misil(m1).
+misil(m2).
+
+/* Corea del Sur posee misiles */
+tiene(corea_sur, m1).
+tiene(corea_sur, m2).
+
+/* West vendió todo misil que Corea del Sur tiene */
+vende(west, X, corea_sur) :-
+    misil(X),
+    tiene(corea_sur, X).
 
 
 
+/* Un misil es un arma */
+arma(X) :-
+    misil(X).
+
+/* Una nación es hostil si es enemiga de Estados Unidos */
+hostil(X) :-
+    enemigo(X, estados_unidos).
 
 
+
+/*  Criminal */
+
+criminal(X) :-
+    estadounidense(X),
+    vende(X, Y, Z),
+    arma(Y),
+    hostil(Z).
+
+/*fin*/ 
